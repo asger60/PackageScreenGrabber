@@ -1,6 +1,6 @@
 {
   "name": "com.farmand.screengrabber",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Screengrabber",
   "description": "A screenshot window for taking screenshots in batches",
   "unity": "2019.1",
@@ -17,8 +17,8 @@
     "keyword3"
   ],
   "author": {
-    "name": "Unity",
-    "email": "unity@example.com",
-    "url": "https://www.unity3d.com"
+    "name": "Farmand",
+    "email": "asger@farmand.org",
+    "url": "https://www.asger.org"
   }
 }
