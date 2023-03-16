@@ -137,12 +137,15 @@ public class FarmandScreenGrabber : EditorWindow
         GUI.color = Color.white;
         using (new EditorGUILayout.VerticalScope(_boxStyle))
         {
-
-            
             Section("Screengrabs");
 
 
             string dir = "Assets/" + folder + "/" + baseShotsFolder + "/";
+            if (!Directory.Exists(dir))
+            {
+                return;
+            }
+
             string[] files = Directory.GetFiles(dir, "*.png", SearchOption.TopDirectoryOnly);
 
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
