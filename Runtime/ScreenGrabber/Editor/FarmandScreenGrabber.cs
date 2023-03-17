@@ -62,7 +62,6 @@ public class FarmandScreenGrabber : EditorWindow
     };
 
 
-    [MenuItem("Farmand/ScreenGrabber")]
     public static void ShowWindow()
     {
         var win = GetWindow<FarmandScreenGrabber>(false, "ScreenGrabber");
