@@ -40,7 +40,7 @@ public class FarmandScreenGrabber : EditorWindow
         {
             this.name = name;
             _ResolutionBlobs = resolutionBlobs;
-            captureEnabled = false;
+            captureEnabled = true;
         }
     }
 
@@ -62,6 +62,7 @@ public class FarmandScreenGrabber : EditorWindow
     };
 
 
+    [MenuItem("Farmand/Screengrabber")]
     public static void ShowWindow()
     {
         var win = GetWindow<FarmandScreenGrabber>(false, "ScreenGrabber");
