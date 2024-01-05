@@ -59,6 +59,10 @@ public class FarmandScreenGrabber : EditorWindow
         {
             new ResolutionBlob("12.9Display", new Vector2Int(2048, 2732)),
         }),
+        new CaptureGroup("FullHD", new()
+        {
+            new ResolutionBlob("FullHD", new Vector2Int(1920, 1080)),
+        }),
     };
 
 
@@ -119,7 +123,7 @@ public class FarmandScreenGrabber : EditorWindow
             GUI.color = Color.green;
             if (GUILayout.Button("Capture", GUILayout.Height(60)))
             {
-                string captureFileName = DateTime.Now.ToString("yyMMdd_HHmmss") + ".png";
+                string captureFileName = DateTime.Now.ToString("yyMMdd_HHmmss") + ".jpg";
 
                 foreach (var captureGroup in _captureGroups)
                 {
@@ -146,7 +150,7 @@ public class FarmandScreenGrabber : EditorWindow
                 return;
             }
 
-            string[] files = Directory.GetFiles(dir, "*.png", SearchOption.TopDirectoryOnly);
+            string[] files = Directory.GetFiles(dir, "*.jpg", SearchOption.TopDirectoryOnly);
 
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
@@ -246,7 +250,7 @@ public class FarmandScreenGrabber : EditorWindow
             Camera cam = Camera.main;
 
             // Create Render Texture with width and height.
-            RenderTexture rt = new RenderTexture(blob.Resolution.x, blob.Resolution.y, 0, RenderTextureFormat.RGB565);
+            RenderTexture rt = new RenderTexture(blob.Resolution.x, blob.Resolution.y, 0, RenderTextureFormat.ARGB32);
 
             // Assign Render Texture to camera.
             cam.targetTexture = rt;
@@ -263,7 +267,7 @@ public class FarmandScreenGrabber : EditorWindow
             RenderTexture.active = cam.targetTexture;
 
             // Make a new texture and read the active Render Texture into it.
-            Texture2D screenshot = new Texture2D(blob.Resolution.x, blob.Resolution.y, TextureFormat.RGB565, false);
+            Texture2D screenshot = new Texture2D(blob.Resolution.x, blob.Resolution.y, TextureFormat.ARGB32, false);
             screenshot.ReadPixels(new Rect(0, 0, blob.Resolution.x, blob.Resolution.y), 0, 0, false);
 
             // PNGs should be sRGB so convert to sRGB color space when rendering in linear.
@@ -283,7 +287,7 @@ public class FarmandScreenGrabber : EditorWindow
 
             // Save the screnshot.
             Directory.CreateDirectory(dir);
-            byte[] png = screenshot.EncodeToPNG();
+            byte[] png = screenshot.EncodeToJPG(100);
             File.WriteAllBytes(path, png);
 
             // Remove the reference to the Target Texture so our Render Texture is garbage collected.
